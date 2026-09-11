@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useless Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            user-select: none; /* Prevents text selection frustration */
+        }
+        .calculator {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+            width: 280px;
+            position: relative;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 1.5rem;
+            text-align: right;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fdfdfd;
+            transition: background 0.1s, transform 0.1s;
+        }
+        button:hover { background-color: #f0f0f0; }
+        button.operator { background-color: #fe9e09; color: white; border: none; }
+        button.operator:hover { background-color: #e08b07; }
+        button.clear { background-color: #ef4444; color: white; border: none; }
+        button.clear:hover { background-color: #dc2626; }
+        button.equal { background-color: #10b981; color: white; border: none; }
+        button.equal:hover { background-color: #059669; }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly>
+    <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button onclick="append('/')">/</button>
+        <button onclick="append('*')">×</button>
+        <button onclick="append('-')">-</button>
+        
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button class="operator" onclick="append('+')">+</button>
+        
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <!-- Added an ID to the equal button so JavaScript can make it run away -->
+        <button id="equalBtn" class="equal" onclick="calculate()" style="grid-row: span 2; height: 100%;">=</button>
+        
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        
+        <button onclick="append('0')" style="grid-column: span 2;">0</button>
+        <button onclick="append('.')">.</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+    const equalBtn = document.getElementById('equalBtn');
+
+    // 1. Dyslexic Inputs: 20% chance the calculator types a completely different digit
+    function append(value) {
+        const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if (digits.includes(value) && Math.random() < 0.20) {
+            const randomDigit = digits[Math.floor(Math.random() * digits.length)];
+            display.value += randomDigit;
+        } else {
+            display.value += value;
+        }
+    }
+
+    function clearDisplay() {
+        display.value = '';
+    }
+
+    // 2. The Runaway Equal Button: 40% chance it jumps away when you try to click it
+    equalBtn.addEventListener('mouseenter', () => {
+        if (Math.random() < 0.40) {
+            const randomX = (Math.random() - 0.5) * 60; 
+            const randomY = (Math.random() - 0.5) * 60;
+            equalBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+    });
+
+    // Reset button position when mouse leaves so it doesn't stay permanently broken
+    equalBtn.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+            equalBtn.style.transform = 'translate(0px, 0px)';
+        }, 1000);
+    });
+
+    // 3. Spiteful Calculations: Never gives you the real answer
+    function calculate() {
+        if (!display.value) return;
+        try {
+            let correctResult = Function('"use strict";return (' + display.value + ')')();
+            
+            if (typeof correctResult === 'number' && !isNaN(correctResult)) {
+                // Returns a random number close to the answer, or just generic sass
+                const jokes = [
+                    correctResult + 1, 
+                    correctResult - 1, 
+                    correctResult * 10, 
+                    "Ask nicely", 
+                    "Try again" 
+                    "podaaaa pattiii"
+                ];
+                display.value = jokes[Math.floor(Math.random() * jokes.length)];
+            } else {
+                display.value = "¯\\_(ツ)_/¯";
+            }
+        } catch (error) {
+            display.value = "Broke it";
+        }
+    }
+</script>
+
+</body>
+</html>

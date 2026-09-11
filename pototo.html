@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🥔 Useless Potato Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(circle at top, #ffe8a3, transparent 40%),
+        linear-gradient(135deg, #f6d365, #fda085);
+
+    overflow: hidden;
+}
+
+.calculator {
+    width: 380px;
+    padding: 25px;
+    border-radius: 30px;
+
+    background: rgba(255, 248, 231, 0.95);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.3),
+        inset 0 0 20px rgba(255,255,255,0.5);
+
+    border: 4px solid #8b5a2b;
+}
+
+h1 {
+    text-align: center;
+    color: #6b3e26;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #8b6b55;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.display {
+    width: 100%;
+    height: 70px;
+
+    padding: 15px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #302018;
+    color: #fff;
+
+    font-size: 28px;
+    text-align: right;
+
+    margin-bottom: 15px;
+
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.4);
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    height: 58px;
+
+    border: none;
+    border-radius: 15px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: #e8c39e;
+    color: #4b2e1e;
+
+    transition: 0.15s;
+}
+
+button:hover {
+    transform: scale(1.06);
+    filter: brightness(1.08);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.operator {
+    background: #c87941;
+    color: white;
+}
+
+.clear {
+    background: #d9534f;
+    color: white;
+}
+
+.equals {
+    background: #6b8e23;
+    color: white;
+}
+
+.useless {
+    grid-column: span 4;
+
+    background: #7b4ab8;
+    color: white;
+
+    height: 50px;
+}
+
+.panic {
+    grid-column: span 2;
+
+    background: #222;
+    color: #ff4444;
+
+    height: 50px;
+}
+
+.fact {
+    grid-column: span 2;
+
+    background: #4c7faf;
+    color: white;
+
+    height: 50px;
+}
+
+.potato-box {
+    margin-top: 20px;
+
+    padding: 15px;
+
+    min-height: 145px;
+
+    border-radius: 18px;
+
+    background: #f3dfb8;
+
+    text-align: center;
+
+    border: 2px dashed #b88950;
+}
+
+.potato-count {
+    font-size: 19px;
+    font-weight: bold;
+
+    color: #6b3e26;
+
+    margin-bottom: 8px;
+}
+
+.potatoes {
+    font-size: 27px;
+
+    line-height: 1.5;
+
+    min-height: 40px;
+
+    max-height: 100px;
+
+    overflow-y: auto;
+
+    word-break: break-all;
+}
+
+.message {
+    margin-top: 8px;
+
+    color: #795548;
+
+    font-style: italic;
+
+    font-size: 14px;
+}
+
+.useless-status {
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #9b7653;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <h1>🥔 Useless Calculator</h1>
+
+    <p class="subtitle">
+        Calculates absolutely nothing useful.
+    </p>
+
+    <input
+        type="text"
+        id="display"
+        class="display"
+        value="0"
+        readonly
+    >
+
+    <div class="buttons">
+
+        <button class="clear" onclick="clearCalculator()">C</button>
+
+        <button onclick="deleteLast()">⌫</button>
+
+        <button onclick="addToDisplay('%')">%</button>
+
+        <button class="operator" onclick="addToDisplay('/')">÷</button>
+
+
+        <button onclick="addToDisplay('7')">7</button>
+        <button onclick="addToDisplay('8')">8</button>
+        <button onclick="addToDisplay('9')">9</button>
+
+        <button class="operator" onclick="addToDisplay('*')">×</button>
+
+
+        <button onclick="addToDisplay('4')">4</button>
+        <button onclick="addToDisplay('5')">5</button>
+        <button onclick="addToDisplay('6')">6</button>
+
+        <button class="operator" onclick="addToDisplay('-')">−</button>
+
+
+        <button onclick="addToDisplay('1')">1</button>
+        <button onclick="addToDisplay('2')">2</button>
+        <button onclick="addToDisplay('3')">3</button>
+
+        <button class="operator" onclick="addToDisplay('+')">+</button>
+
+
+        <button onclick="addToDisplay('0')">0</button>
+
+        <button onclick="addToDisplay('.')">.</button>
+
+        <button class="equals"
+                onclick="calculateUseless()">
+            =
+        </button>
+
+
+        <button class="useless"
+                onclick="doNothing()">
+            🚫 DO ABSOLUTELY NOTHING
+        </button>
+
+
+        <button class="panic"
+                onclick="potatoPanic()">
+            🚨 POTATO PANIC
+        </button>
+
+        <button class="fact"
+                onclick="uselessFact()">
+            🧠 USELESS FACT
+        </button>
+
+    </div>
+
+
+    <div class="potato-box">
+
+        <div class="potato-count" id="result">
+            Your useless result awaits...
+        </div>
+
+        <div class="potatoes" id="potatoes">
+            🥔
+        </div>
+
+        <div class="message" id="message">
+            Why are you calculating potatoes?
+        </div>
+
+    </div>
+
+    <div class="useless-status" id="status">
+        System status: Completely unnecessary.
+    </div>
+
+</div>
+
+
+<script>
+
+const display = document.getElementById("display");
+
+const result = document.getElementById("result");
+
+const potatoes = document.getElementById("potatoes");
+
+const message = document.getElementById("message");
+
+const status = document.getElementById("status");
+
+
+/* =========================
+   NORMAL INPUT
+========================= */
+
+function addToDisplay(value) {
+
+    if (
+        display.value === "0" ||
+        display.value === "Error"
+    ) {
+        display.value = value;
+    } else {
+
+        display.value += value;
+
+    }
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearCalculator() {
+
+    display.value = "0";
+
+    result.innerText =
+        "Your useless result awaits...";
+
+    potatoes.innerText =
+        "🥔";
+
+    message.innerText =
+        "Why are you calculating potatoes?";
+
+    status.innerText =
+        "System status: Completely unnecessary.";
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteLast() {
+
+    if (
+        display.value.length > 1 &&
+        display.value !== "Error"
+    ) {
+
+        display.value =
+            display.value.slice(0, -1);
+
+    } else {
+
+        display.value = "0";
+
+    }
+
+}
+
+
+/* =========================
+   USELESS CALCULATION
+========================= */
+
+function calculateUseless() {
+
+    try {
+
+        let expression = display.value;
+
+        expression = expression.replace(
+            /(\d+(?:\.\d+)?)%/g,
+            "($1/100)"
+        );
+
+        let realAnswer = Function(
+            '"use strict"; return (' +
+            expression +
+            ')'
+        )();
+
+        if (!Number.isFinite(realAnswer)) {
+            throw new Error();
+        }
+
+
+        /*
+         * HERE IS THE IMPORTANT PART:
+         *
+         * We calculate the real answer...
+         * then completely ignore it.
+         */
+
+        const uselessAnswers = [
+
+            "Probably potato.",
+
+            "42-ish.",
+
+            "Not enough potatoes.",
+
+            "Calculation successful. Purpose unknown.",
+
+            "Yes.",
+
+            "No.",
+
+            "Maybe.",
+
+            "Definitely potato.",
+
+            "Error: Mathematics has left the building.",
+
+            "Your answer is somewhere over there.",
+
+            "Approximately 7 potatoes.",
+
+            "The calculator refuses to elaborate.",
+
+            "¯\\_(ツ)_/¯",
+
+            "This information will change nothing.",
+
+            "Congratulations. You calculated something useless."
+
+        ];
+
+
+        const randomAnswer =
+            uselessAnswers[
+                Math.floor(
+                    Math.random() *
+                    uselessAnswers.length
+                )
+            ];
+
+
+        display.value = randomAnswer;
+
+
+        createRandomPotatoes();
+
+        message.innerText =
+            randomMessage();
+
+
+        status.innerText =
+            "System status: Calculation was pointless.";
+
+    }
+
+    catch {
+
+        display.value = "ERROR";
+
+        result.innerText =
+            "🥔 POTATO ERROR";
+
+        potatoes.innerText =
+            "🥔❓🥔❓🥔";
+
+        message.innerText =
+            "Even the potatoes don't understand.";
+
+        status.innerText =
+            "System status: Somehow even more useless.";
+
+    }
+
+}
+
+
+/* =========================
+   RANDOM POTATOES
+========================= */
+
+function createRandomPotatoes() {
+
+    const count =
+        Math.floor(
+            Math.random() * 30
+        ) + 1;
+
+
+    result.innerText =
+        "Useless potato quantity: " +
+        count;
+
+
+    potatoes.innerText =
+        "🥔".repeat(count);
+
+}
+
+
+/* =========================
+   RANDOM MESSAGES
+========================= */
+
+function randomMessage() {
+
+    const messages = [
+
+        "You could have used a calculator.",
+        "Nobody asked for this.",
+        "Excellent waste of time.",
+        "The potato is judging you.",
+        "This is technically software.",
+        "Congratulations on accomplishing nothing.",
+        "Your computer is disappointed.",
+        "Somewhere, a potato is proud.",
+        "This calculation has no practical value.",
+        "Please stop calculating.",
+        "You have unlocked absolutely nothing.",
+        "This feature cost 0 dollars to develop.",
+        "Science has questions.",
+        "Why does this exist?",
+        "Because we can."
+
+    ];
+
+
+    return messages[
+        Math.floor(
+            Math.random() *
+            messages.length
+        )
+    ];
+
+}
+
+
+/* =========================
+   DO NOTHING
+========================= */
+
+function doNothing() {
+
+    const messages = [
+
+        "Nothing happened.",
+        "Correct.",
+        "Excellent. Nothing has been done.",
+        "Task completed: nothing.",
+        "You are now 0% more productive.",
+        "The button worked perfectly.",
+        "Absolutely nothing detected.",
+        "Congratulations on doing nothing."
+
+    ];
+
+
+    const msg =
+        messages[
+            Math.floor(
+                Math.random() *
+                messages.length
+            )
+        ];
+
+
+    message.innerText = msg;
+
+    status.innerText =
+        "System status: Nothing is happening.";
+
+}
+
+
+/* =========================
+   POTATO PANIC
+========================= */
+
+function potatoPanic() {
+
+    document.body.style.background =
+        "#ff0000";
+
+
+    display.value =
+        "🥔 PANIC";
+
+
+    result.innerText =
+        "POTATO EMERGENCY";
+
+
+    potatoes.innerText =
+        "🥔".repeat(100);
+
+
+    message.innerText =
+        "THE POTATOES HAVE ESCAPED!!!";
+
+
+    status.innerText =
+        "🚨 SYSTEM STATUS: POTATO PANIC 🚨";
+
+
+    setTimeout(() => {
+
+        document.body.style.background =
+            "linear-gradient(135deg, #f6d365, #fda085)";
+
+        display.value =
+            "0";
+
+        result.innerText =
+            "Crisis successfully ignored.";
+
+        potatoes.innerText =
+            "🥔";
+
+        message.innerText =
+            "Everything is probably fine.";
+
+        status.innerText =
+            "System status: Completely unnecessary.";
+
+    }, 2500);
+
+}
+
+
+/* =========================
+   USELESS FACTS
+========================= */
+
+function uselessFact() {
+
+    const facts = [
+
+        "Potatoes have eyes but cannot see.",
+
+        "A potato is not a calculator.",
+
+        "You are currently looking at a potato calculator.",
+
+        "This button serves almost no purpose.",
+
+        "Potatoes contain water.",
+
+        "The average potato does not know JavaScript.",
+
+        "Nobody knows why this project exists.",
+
+        "This fact will probably not help you.",
+
+        "A potato cannot understand your calculations.",
+
+        "You have spent time reading this fact."
+
+    ];
+
+
+    const fact =
+        facts[
+            Math.floor(
+                Math.random() *
+                facts.length
+            )
+        ];
+
+
+    message.innerText =
+        "🧠 " + fact;
+
+
+    status.innerText =
+        "System status: Knowledge increased by approximately 0.0001%.";
+
+}
+
+
+/* =========================
+   KEYBOARD SUPPORT
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const key = event.key;
+
+
+        if (
+            (key >= "0" && key <= "9") ||
+            key === "+" ||
+            key === "-" ||
+            key === "*" ||
+            key === "/" ||
+            key === "." ||
+            key === "%"
+        ) {
+
+            addToDisplay(key);
+
+        }
+
+
+        if (key === "Enter") {
+
+            calculateUseless();
+
+        }
+
+
+        if (key === "Backspace") {
+
+            deleteLast();
+
+        }
+
+
+        if (key === "Escape") {
+
+            clearCalculator();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

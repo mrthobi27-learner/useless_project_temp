@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🚶 Useless Walking Simulator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(
+        #72c7ff 0%,
+        #b8e5ff 55%,
+        #78b852 55%,
+        #5c963c 100%
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.game {
+    width: 450px;
+    max-width: 95%;
+    background: rgba(255,255,255,0.95);
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* WORLD */
+
+.world {
+    height: 180px;
+
+    border-radius: 20px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            #7ed6ff 0%,
+            #c7f0ff 60%,
+            #72ad4d 60%,
+            #619842 100%
+        );
+
+    border: 3px solid #555;
+}
+
+/* SUN */
+
+.sun {
+    position: absolute;
+
+    width: 55px;
+    height: 55px;
+
+    background: #ffd93d;
+
+    border-radius: 50%;
+
+    top: 20px;
+    right: 30px;
+
+    box-shadow:
+        0 0 30px #ffd93d;
+}
+
+/* CLOUDS */
+
+.cloud {
+    position: absolute;
+
+    font-size: 35px;
+
+    opacity: 0.8;
+
+    animation: cloudMove 15s linear infinite;
+}
+
+.cloud1 {
+    top: 25px;
+    left: -50px;
+}
+
+.cloud2 {
+    top: 65px;
+    left: -200px;
+
+    animation-delay: 5s;
+}
+
+@keyframes cloudMove {
+
+    from {
+        transform: translateX(-100px);
+    }
+
+    to {
+        transform: translateX(550px);
+    }
+
+}
+
+/* PLAYER */
+
+.player {
+    position: absolute;
+
+    bottom: 38px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 55px;
+
+    transition: 0.15s;
+}
+
+.walking {
+    animation: walk 0.25s infinite alternate;
+}
+
+@keyframes walk {
+
+    from {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(-5deg);
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            translateY(-7px)
+            rotate(5deg);
+    }
+
+}
+
+/* ROAD */
+
+.road {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 38px;
+
+    background: #555;
+}
+
+.road::after {
+    content: "";
+
+    position: absolute;
+
+    top: 16px;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #fff 0px,
+            #fff 35px,
+            transparent 35px,
+            transparent 70px
+        );
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.stat {
+    background: #f1f1f1;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: #333;
+}
+
+.stat-label {
+    font-size: 11px;
+
+    color: #888;
+
+    margin-top: 3px;
+}
+
+/* BUTTON */
+
+.walk-button {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #3498db;
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.walk-button:hover {
+    background: #2980b9;
+
+    transform: scale(1.02);
+}
+
+.walk-button:active {
+    transform: scale(0.97);
+}
+
+/* USELESS BUTTON */
+
+.useless-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #9b59b6;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* EVENT */
+
+.event {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #fff8dc;
+
+    border: 2px dashed #e0bd50;
+
+    text-align: center;
+
+    min-height: 60px;
+
+    color: #725c00;
+}
+
+/* PROGRESS */
+
+.progress-container {
+    margin-top: 15px;
+}
+
+.progress-label {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-bottom: 5px;
+}
+
+.progress {
+    height: 12px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 100%;
+
+    background: #2ecc71;
+
+    transition: width 0.3s;
+}
+
+/* ACHIEVEMENT */
+
+.achievement {
+    margin-top: 12px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="game">
+
+    <h1>🚶 Walking Simulator</h1>
+
+    <p class="subtitle">
+        Walk absolutely nowhere.
+    </p>
+
+
+    <!-- WORLD -->
+
+    <div class="world">
+
+        <div class="sun"></div>
+
+        <div class="cloud cloud1">☁️</div>
+
+        <div class="cloud cloud2">☁️</div>
+
+        <div
+            id="player"
+            class="player"
+        >
+            🚶
+        </div>
+
+        <div class="road"></div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="steps"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                STEPS
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="distance"
+            >
+                0 m
+            </div>
+
+            <div class="stat-label">
+                DISTANCE
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="time"
+            >
+                0s
+            </div>
+
+            <div class="stat-label">
+                TIME
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STAMINA -->
+
+    <div class="progress-container">
+
+        <div class="progress-label">
+
+            <span>Stamina</span>
+
+            <span id="staminaText">
+                100%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="staminaBar"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- WALK -->
+
+    <button
+        class="walk-button"
+        onclick="walk()"
+    >
+        🚶 WALK
+    </button>
+
+
+    <!-- USELESS -->
+
+    <button
+        class="useless-button"
+        onclick="doNothing()"
+    >
+        🚫 WALK BUT GO NOWHERE
+    </button>
+
+
+    <!-- EVENT -->
+
+    <div
+        class="event"
+        id="event"
+    >
+        You are standing still.
+    </div>
+
+
+    <!-- ACHIEVEMENT -->
+
+    <div
+        class="achievement"
+        id="achievement"
+    >
+        Achievement: Existing 🌟
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   VARIABLES
+========================= */
+
+let steps = 0;
+
+let distance = 0;
+
+let seconds = 0;
+
+let stamina = 100;
+
+let walking = false;
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const player =
+    document.getElementById("player");
+
+const stepsDisplay =
+    document.getElementById("steps");
+
+const distanceDisplay =
+    document.getElementById("distance");
+
+const timeDisplay =
+    document.getElementById("time");
+
+const staminaBar =
+    document.getElementById("staminaBar");
+
+const staminaText =
+    document.getElementById("staminaText");
+
+const eventDisplay =
+    document.getElementById("event");
+
+const achievementDisplay =
+    document.getElementById("achievement");
+
+
+/* =========================
+   WALK
+========================= */
+
+function walk() {
+
+    if (stamina <= 0) {
+
+        eventDisplay.innerText =
+            "You are too tired to walk nowhere.";
+
+        return;
+    }
+
+
+    steps++;
+
+    distance += 0.7;
+
+    stamina -= 1;
+
+
+    stepsDisplay.innerText =
+        steps;
+
+    distanceDisplay.innerText =
+        distance.toFixed(1) + " m";
+
+
+    updateStamina();
+
+    animatePlayer();
+
+    randomEvent();
+
+    checkAchievement();
+
+}
+
+
+/* =========================
+   PLAYER ANIMATION
+========================= */
+
+function animatePlayer() {
+
+    player.classList.add("walking");
+
+
+    setTimeout(() => {
+
+        player.classList.remove("walking");
+
+    }, 250);
+
+}
+
+
+/* =========================
+   STAMINA
+========================= */
+
+function updateStamina() {
+
+    if (stamina < 0) {
+        stamina = 0;
+    }
+
+
+    staminaBar.style.width =
+        stamina + "%";
+
+
+    staminaText.innerText =
+        stamina + "%";
+
+
+    if (stamina < 30) {
+
+        staminaBar.style.background =
+            "#e74c3c";
+
+    } else if (stamina < 60) {
+
+        staminaBar.style.background =
+            "#f1c40f";
+
+    } else {
+
+        staminaBar.style.background =
+            "#2ecc71";
+
+    }
+
+}
+
+
+/* =========================
+   RANDOM EVENTS
+========================= */
+
+function randomEvent() {
+
+    if (Math.random() > 0.35) {
+        return;
+    }
+
+
+    const events = [
+
+        "You walked past absolutely nothing.",
+
+        "You saw a tree. It was just a tree.",
+
+        "A bird ignored you.",
+
+        "You stepped on a perfectly normal piece of road.",
+
+        "You have made zero progress toward your destination.",
+
+        "You walked for no reason.",
+
+        "The scenery has not changed.",
+
+        "You considered turning around.",
+
+        "You forgot where you were going.",
+
+        "You are still nowhere.",
+
+        "A cloud moved. Congratulations.",
+
+        "You achieved absolutely nothing.",
+
+        "Your walking skills remain questionable.",
+
+        "You have discovered... more road.",
+
+        "The destination is still nowhere."
+
+    ];
+
+
+    eventDisplay.innerText =
+        events[
+            Math.floor(
+                Math.random() * events.length
+            )
+        ];
+
+}
+
+
+/* =========================
+   DO NOTHING
+========================= */
+
+function doNothing() {
+
+    const messages = [
+
+        "You did nothing.",
+
+        "Excellent. No progress.",
+
+        "You remained exactly where you were.",
+
+        "Achievement unlocked: Nothing.",
+
+        "Your character is reconsidering their life choices.",
+
+        "That button worked perfectly.",
+
+        "You successfully wasted another second.",
+
+        "Walking stopped being necessary."
+
+    ];
+
+
+    eventDisplay.innerText =
+        messages[
+            Math.floor(
+                Math.random() * messages.length
+            )
+        ];
+
+}
+
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+function checkAchievement() {
+
+    if (steps === 1) {
+
+        achievementDisplay.innerText =
+            "Achievement: First pointless step 🏆";
+
+    }
+
+    if (steps === 10) {
+
+        achievementDisplay.innerText =
+            "Achievement: Professional Walker 🏆";
+
+    }
+
+    if (steps === 50) {
+
+        achievementDisplay.innerText =
+            "Achievement: Still Going Nowhere 🏆";
+
+    }
+
+    if (steps === 100) {
+
+        achievementDisplay.innerText =
+            "Achievement: Master of Useless Walking 🏆";
+
+    }
+
+    if (steps === 500) {
+
+        achievementDisplay.innerText =
+            "Achievement: Please Go Outside 🏆";
+
+    }
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+setInterval(() => {
+
+    seconds++;
+
+    timeDisplay.innerText =
+        seconds + "s";
+
+
+    /*
+     * Recover stamina very slowly.
+     */
+
+    if (stamina < 100) {
+
+        stamina += 0.2;
+
+        stamina =
+            Math.min(stamina, 100);
+
+        updateStamina();
+
+    }
+
+}, 1000);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.code === "Space"
+        ) {
+
+            event.preventDefault();
+
+            walk();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
