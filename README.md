@@ -15,7 +15,7 @@
 - Member 3: [Name] - [College]
 
 ### Project Description
-[Useless Walking Simulator is a simple web-based game where the player can walk without actually going anywhere. The main purpose of the project is to create a fun and interactive website using HTML, CSS, and JavaScript.
+[Useless Walking Simulator is a simple web-based game where the player can walk without actually going anywhere. The main purpose of the project is to create a fun and interactive website using HTML, [...]
 
 The player can click the Walk button or press the Spacebar to take steps. The game keeps track of the number of steps, distance, time, and stamina.
 
@@ -36,18 +36,18 @@ Achievement system
 Spacebar keyboard control
 Simple and responsive design
 Objective
-The objective of this project is to create a simple and entertaining web game while learning basic concepts of HTML, CSS, and JavaScript, such as buttons, animations, events, timers, and dynamic content.
+The objective of this project is to create a simple and entertaining web game while learning basic concepts of HTML, CSS, and JavaScript, such as buttons, animations, events, timers, and dynamic conte[...]
 
 Conclusion
-Useless Walking Simulator is a small and fun project that demonstrates basic web development skills. Even though the player walks without reaching anywhere, the game provides an interactive experience and helps demonstrate how JavaScript can be used to create dynamic web applications. ]
+Useless Walking Simulator is a small and fun project that demonstrates basic web development skills. Even though the player walks without reaching anywhere, the game provides an interactive experience[...]
 
 ### The Problem (that doesn't exist)
 [What ridiculous problem are you solving?]
 
 ### The Solution (that nobody asked for)
-[People often walk every day but sometimes have no idea how many steps they have taken or how far they have gone. This project solves the completely unnecessary problem of walking without going anywhere.
+[People often walk every day but sometimes have no idea how many steps they have taken or how far they have gone. This project solves the completely unnecessary problem of walking without going anywhe[...]
 
-The Useless Walking Simulator allows users to take virtual steps, track their distance and time, manage stamina, and unlock funny achievements. Although it does not solve a real-world problem, it provides a simple and entertaining way to demonstrate basic web development concepts .]
+The Useless Walking Simulator allows users to take virtual steps, track their distance and time, manage stamina, and unlock funny achievements. Although it does not solve a real-world problem, it prov[...]
 
 ## Technical Details
 ### Technologies/Components Used
@@ -77,14 +77,14 @@ code .
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1](https://github.com/mrthobi27-learner/useless_project_temp/raw/main/image/Screenshot%202026-09-12%20073201.png)
+*Game interface showing the walking simulator with step counter and distance tracker*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2](https://github.com/mrthobi27-learner/useless_project_temp/raw/main/image/Screenshot%202026-09-12%20073640.png)
+*Detailed view of the game showing stamina bar, walking animation, and statistics display*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot3](https://github.com/mrthobi27-learner/useless_project_temp/raw/main/image/Screenshot%202026-09-12%20092438.png)
+*Gameplay in progress demonstrating the interactive walking mechanic and real-time updates*
 
 # Diagrams
 ![        ┌───────────────┐
@@ -139,7 +139,7 @@ For Software:
    │ Keep Walking│
    │  Nowhere 😄 │
    └─────────────┘]
-*“Useless Walking Simulator – A Fun Web Game Where You Walk Everywhere but Go Nowhere!”*
+*"Useless Walking Simulator – A Fun Web Game Where You Walk Everywhere but Go Nowhere!"*
 
 For Hardware:
 
@@ -178,6 +178,3 @@ Made with ❤️ at TinkerHub Useless Projects
 
 ![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
 ![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
-
-
-
