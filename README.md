@@ -11,8 +11,6 @@
 
 ### Team Members
 - Team Lead: [Sherin Babu] - [BMC]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
 
 ### Project Description
 [Useless Walking Simulator is a simple web-based game where the player can walk without actually going anywhere. The main purpose of the project is to create a fun and interactive website using HTML, [...]
@@ -57,10 +55,6 @@ For Software:
 - [Libraries used]
 - [Tools used]
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
